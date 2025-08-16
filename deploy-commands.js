@@ -1,4 +1,3 @@
-// deploy-commands.js
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
@@ -7,6 +6,7 @@ const { Routes } = require("discord-api-types/v10");
 
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
+const guildId = process.env.GUILD_ID; // thêm vào .env
 
 // Hàm đệ quy lấy tất cả command
 const walk = (dir) =>
@@ -29,11 +29,19 @@ const rest = new REST({ version: "10" }).setToken(token);
 
 (async () => {
   try {
-    console.log(`🔁 Deploying ${commands.length} global commands...`);
+    console.log(`🔁 Deploying ${commands.length} commands...`);
+
+    // Deploy Guild Commands (cập nhật gần như ngay lập tức)
+    if (guildId) {
+      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+        body: commands,
+      });
+      console.log("✅ Guild commands deployed (cập nhật ngay).");
+    }
+
+    // Deploy Global Commands (cần 1–3h để update)
     await rest.put(Routes.applicationCommands(clientId), { body: commands });
-    console.log(
-      "✅ Global commands deployed. Có thể mất 1–3 giờ để Discord cập nhật."
-    );
+    console.log("✅ Global commands deployed.");
   } catch (err) {
     console.error(err);
   }
