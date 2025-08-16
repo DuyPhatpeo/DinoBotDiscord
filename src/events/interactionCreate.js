@@ -26,17 +26,8 @@ module.exports = {
       }
     }
 
-    // Button Interaction (poll, oẳn tù tì, vv)
+    // Button Interaction (oẳn tù tì, vv)
     if (interaction.isButton()) {
-      // Poll
-      if (interaction.customId.startsWith("poll_")) {
-        const choice = interaction.customId.split("_")[1];
-        return interaction.reply({
-          content: `🗳️ ${interaction.user} đã chọn **Lựa chọn ${choice}**`,
-          ephemeral: true,
-        });
-      }
-
       // Bao – Búa – Kéo
       if (["rock", "paper", "scissors"].includes(interaction.customId)) {
         const userChoice = interaction.customId;
