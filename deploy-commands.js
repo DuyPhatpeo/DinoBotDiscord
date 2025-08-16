@@ -7,7 +7,6 @@ const { Routes } = require("discord-api-types/v10");
 
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
-const guildId = process.env.GUILD_ID; // chỉ deploy tạm thời cho server test
 
 // Hàm đệ quy lấy tất cả command
 const walk = (dir) =>
@@ -30,12 +29,11 @@ const rest = new REST({ version: "10" }).setToken(token);
 
 (async () => {
   try {
-    console.log(`🔁 Deploying ${commands.length} commands...`);
-    await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId), // chỉ cho 1 guild test
-      { body: commands }
+    console.log(`🔁 Deploying ${commands.length} global commands...`);
+    await rest.put(Routes.applicationCommands(clientId), { body: commands });
+    console.log(
+      "✅ Global commands deployed. Có thể mất 1–3 giờ để Discord cập nhật."
     );
-    console.log("✅ Commands deployed.");
   } catch (err) {
     console.error(err);
   }
