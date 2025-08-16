@@ -26,7 +26,7 @@ module.exports = {
       }
     }
 
-    // Button Interaction (dùng cho poll, confirm, vv)
+    // Button Interaction (poll, oẳn tù tì, vv)
     if (interaction.isButton()) {
       // Poll
       if (interaction.customId.startsWith("poll_")) {
@@ -37,12 +37,36 @@ module.exports = {
         });
       }
 
-      // Các button khác bạn thêm xử lý ở đây
+      // Bao – Búa – Kéo
+      if (["rock", "paper", "scissors"].includes(interaction.customId)) {
+        const userChoice = interaction.customId;
+        const choices = ["rock", "paper", "scissors"];
+        const botChoice = choices[Math.floor(Math.random() * choices.length)];
+
+        let result = "";
+        if (userChoice === botChoice) {
+          result = "⚖️ Hòa nhau!";
+        } else if (
+          (userChoice === "rock" && botChoice === "scissors") ||
+          (userChoice === "paper" && botChoice === "rock") ||
+          (userChoice === "scissors" && botChoice === "paper")
+        ) {
+          result = "🎉 Bạn thắng!";
+        } else {
+          result = "😢 Bot thắng!";
+        }
+
+        return interaction.update({
+          content: `🫵 Bạn chọn: **${icon(userChoice)}**\n🤖 Bot chọn: **${icon(
+            botChoice
+          )}**\n\n👉 ${result}`,
+          components: [], // Xoá nút sau khi chọn
+        });
+      }
     }
 
-    // Select Menu Interaction (nếu bạn muốn sau này dùng dropdown)
+    // Select Menu Interaction
     if (interaction.isStringSelectMenu()) {
-      // Ví dụ xử lý select menu
       console.log(`${interaction.user.tag} chọn: ${interaction.values}`);
       await interaction.reply({
         content: `Bạn đã chọn: ${interaction.values.join(", ")}`,
@@ -51,3 +75,15 @@ module.exports = {
     }
   },
 };
+
+// Hàm helper để hiện icon đẹp
+function icon(choice) {
+  switch (choice) {
+    case "rock":
+      return "✊ Búa";
+    case "paper":
+      return "✋ Bao";
+    case "scissors":
+      return "✌️ Kéo";
+  }
+}
