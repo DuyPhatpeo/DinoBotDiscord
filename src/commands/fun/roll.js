@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("roll")
-    .setDescription("Tung xúc xắc 🎲")
+    .setDescription("Tung xúc xắc")
     .addIntegerOption((option) =>
       option
         .setName("sides")

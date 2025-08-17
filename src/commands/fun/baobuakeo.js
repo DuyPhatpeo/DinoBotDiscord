@@ -8,7 +8,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("baobuakeo")
-    .setDescription("Chơi Oẳn Tù Tì (Bao – Búa – Kéo) với bot 🚀"),
+    .setDescription("Chơi Oẳn Tù Tì (Bao – Búa – Kéo) với bot"),
 
   async execute(interaction) {
     const row = new ActionRowBuilder().addComponents(

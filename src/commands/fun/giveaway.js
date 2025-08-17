@@ -9,7 +9,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("giveaway")
-    .setDescription("Tạo một giveaway 🎉")
+    .setDescription("Tạo một giveaway")
     .addStringOption((option) =>
       option
         .setName("prize")
