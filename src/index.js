@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
+// Khởi tạo Discord client
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -58,4 +59,18 @@ if (fs.existsSync(eventsPath)) {
   }
 }
 
+// Login bot Discord
 client.login(process.env.DISCORD_TOKEN);
+
+// 🟢 Express server keep-alive cho Render detect port
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("✅ DinoBot is running on Render!");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🌐 Keep-alive web server listening on port ${PORT}`);
+});
