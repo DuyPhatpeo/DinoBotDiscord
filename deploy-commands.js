@@ -40,8 +40,8 @@ const rest = new REST({ version: "10" }).setToken(token);
     }
 
     // Nếu muốn deploy global thì bật thêm
-    await rest.put(Routes.applicationCommands(clientId), { body: commands });
-    console.log("✅ Global commands deployed (1-3h).");
+    // await rest.put(Routes.applicationCommands(clientId), { body: commands });
+    // console.log("✅ Global commands deployed (1-3h).");
   } catch (err) {
     console.error("❌ Lỗi deploy:", err);
   }
