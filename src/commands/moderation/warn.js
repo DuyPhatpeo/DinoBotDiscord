@@ -16,7 +16,8 @@ module.exports = {
         .setDescription("Lý do cảnh báo")
         .setRequired(false)
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
+    // đổi ModerateMembers -> KickMembers (hoặc BanMembers tuỳ quyền mod bạn chọn)
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
 
   async execute(interaction) {
     const target = interaction.options.getUser("target");
@@ -43,7 +44,6 @@ module.exports = {
           `⚠️ Bạn đã bị cảnh báo trong server **${interaction.guild.name}**.\n**Lý do:** ${reason}`
         )
         .catch(() => {
-          // Nếu user tắt DM
           console.log("Không thể gửi DM cho user này.");
         });
 
